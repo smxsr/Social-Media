@@ -7,15 +7,18 @@ const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const connectDB = require("./db/db");
 const postRoute = require("./routes/posts");
+const cors = require("cors");
 
 const app = new express();
 //middleware
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+app.use(cors());
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
+
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URL);
